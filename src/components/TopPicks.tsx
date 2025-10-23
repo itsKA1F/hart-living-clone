@@ -1,46 +1,9 @@
 import { Heart, ShoppingCart } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/hooks/use-cart";
-import chairImg from "@/assets/chair-product.jpg";
-import tableImg from "@/assets/table-product.jpg";
-import sofaImg from "@/assets/sofa-product.jpg";
-import diningTableImg from "@/assets/dining-table-product.jpg";
-
-const products = [
-  {
-    id: 1,
-    name: "Cagliari Rich Black Side Table",
-    category: "Side Table",
-    price: 350,
-    image: tableImg,
-    soldOut: true,
-  },
-  {
-    id: 2,
-    name: "Knoll Cloud White Resting Chair",
-    category: "Arm Chairs",
-    price: 600,
-    image: chairImg,
-  },
-  {
-    id: 3,
-    name: "Beja Smokey Grey Cozy L Sofa",
-    category: "Sectional Sofas",
-    price: 1500,
-    originalPrice: 1800,
-    image: sofaImg,
-    sale: true,
-  },
-  {
-    id: 4,
-    name: "Alba Minimalist White Dining Table",
-    category: "Dining Table",
-    price: 1100,
-    image: diningTableImg,
-    soldOut: true,
-  },
-];
+import { products } from "@/data/products";
 
 const TopPicks = () => {
   const { addItem } = useCart();
@@ -57,7 +20,8 @@ const TopPicks = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product) => (
             <div key={product.id} className="group relative overflow-hidden rounded-lg bg-card transition-all hover:shadow-lg">
-              <div className="relative aspect-square overflow-hidden bg-muted/20">
+              <Link to={`/product/${product.id}`}>
+                <div className="relative aspect-square overflow-hidden bg-muted/20 cursor-pointer">
                 {product.soldOut && (
                   <Badge className="absolute left-3 top-3 z-10 bg-muted text-muted-foreground">
                     Sold Out
@@ -80,7 +44,8 @@ const TopPicks = () => {
                 >
                   <Heart className="h-4 w-4" />
                 </Button>
-              </div>
+                </div>
+              </Link>
               <div className="p-4">
                 <p className="mb-1 text-xs text-muted-foreground">{product.category}</p>
                 <h3 className="mb-2 font-semibold text-foreground line-clamp-2">{product.name}</h3>
