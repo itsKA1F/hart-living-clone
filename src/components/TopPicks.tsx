@@ -1,6 +1,7 @@
-import { Heart } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useCart } from "@/hooks/use-cart";
 import chairImg from "@/assets/chair-product.jpg";
 import tableImg from "@/assets/table-product.jpg";
 import sofaImg from "@/assets/sofa-product.jpg";
@@ -42,6 +43,8 @@ const products = [
 ];
 
 const TopPicks = () => {
+  const { addItem } = useCart();
+
   return (
     <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
@@ -81,15 +84,32 @@ const TopPicks = () => {
               <div className="p-4">
                 <p className="mb-1 text-xs text-muted-foreground">{product.category}</p>
                 <h3 className="mb-2 font-semibold text-foreground line-clamp-2">{product.name}</h3>
-                <div className="flex items-center gap-2">
-                  {product.originalPrice && (
-                    <span className="text-sm text-muted-foreground line-through">
-                      ${product.originalPrice.toLocaleString()}
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    {product.originalPrice && (
+                      <span className="text-sm text-muted-foreground line-through">
+                        ${product.originalPrice.toLocaleString()}
+                      </span>
+                    )}
+                    <span className="text-lg font-bold text-primary">
+                      ${product.price.toLocaleString()}
                     </span>
+                  </div>
+                  {!product.soldOut && (
+                    <Button
+                      size="icon"
+                      onClick={() =>
+                        addItem({
+                          id: product.id,
+                          name: product.name,
+                          price: product.price,
+                          image: product.image,
+                        })
+                      }
+                    >
+                      <ShoppingCart className="h-4 w-4" />
+                    </Button>
                   )}
-                  <span className="text-lg font-bold text-primary">
-                    ${product.price.toLocaleString()}
-                  </span>
                 </div>
               </div>
             </div>

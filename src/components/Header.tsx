@@ -1,6 +1,6 @@
 import { Search, Heart, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { CartDrawer } from "@/components/CartDrawer";
 
 const Header = () => {
   return (
@@ -33,6 +33,7 @@ const Header = () => {
           <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary/90">
             <Heart className="h-5 w-5" />
           </Button>
+          <CartDrawer />
           <Button variant="ghost" size="icon" className="md:hidden text-primary-foreground hover:bg-primary/90">
             <Menu className="h-5 w-5" />
           </Button>
