@@ -92,21 +92,41 @@ get_header();
                                             <strong><?php _e('Weight:', 'hart-living'); ?></strong> 
                                             <?php echo esc_html($weight); ?>
                                         </p>
-                                    <?php endif; ?>
-                                </div>
                             <?php endif; ?>
-                            
-                            <!-- Action Buttons -->
-                            <div style="display: flex; gap: 1rem;">
-                                <a href="<?php echo esc_url(home_url('/#contact')); ?>" 
-                                   style="flex: 1; background: var(--primary); color: var(--primary-foreground); padding: 1rem 2rem; border-radius: 0.375rem; text-align: center; text-decoration: none; font-weight: 600; transition: opacity 0.3s;">
-                                    <?php _e('Inquire Now', 'hart-living'); ?>
-                                </a>
-                                <a href="<?php echo esc_url(home_url('/#products')); ?>" 
-                                   style="padding: 1rem 2rem; border: 2px solid var(--primary); color: var(--primary); border-radius: 0.375rem; text-align: center; text-decoration: none; font-weight: 600; transition: all 0.3s;">
-                                    <?php _e('Back to Products', 'hart-living'); ?>
-                                </a>
-                            </div>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <!-- Quantity Selector -->
+                    <div class="product-quantity">
+                        <label for="quantity"><?php _e('Quantity:', 'hart-living'); ?></label>
+                        <div class="quantity-controls">
+                            <button type="button" class="quantity-btn" id="decrease-qty">-</button>
+                            <input type="number" id="quantity" value="1" min="1" max="99">
+                            <button type="button" class="quantity-btn" id="increase-qty">+</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <button class="add-to-cart-btn"
+                                style="flex: 1;"
+                                data-id="<?php echo get_the_ID(); ?>"
+                                data-name="<?php echo esc_attr(get_the_title()); ?>"
+                                data-price="<?php echo esc_attr($price); ?>"
+                                data-image="<?php echo esc_url(has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'full') : ''); ?>">
+                            <?php _e('Add to Cart', 'hart-living'); ?>
+                        </button>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="<?php echo esc_url(home_url('/#products')); ?>" 
+                           style="flex: 1; padding: 1rem 2rem; border: 2px solid var(--primary); color: var(--primary); border-radius: 0.375rem; text-align: center; text-decoration: none; font-weight: 600; transition: all 0.3s;">
+                            <?php _e('Back to Products', 'hart-living'); ?>
+                        </a>
+                        <a href="<?php echo esc_url(home_url('/#contact')); ?>" 
+                           style="flex: 1; padding: 1rem 2rem; border: 2px solid var(--primary); color: var(--primary); border-radius: 0.375rem; text-align: center; text-decoration: none; font-weight: 600; transition: all 0.3s;">
+                            <?php _e('Inquire', 'hart-living'); ?>
+                        </a>
+                    </div>
                         </div>
                         
                     </div>
