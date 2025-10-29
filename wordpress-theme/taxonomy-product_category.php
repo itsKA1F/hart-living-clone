@@ -26,7 +26,7 @@ $term = get_queried_object();
                 <?php
                 $products = new WP_Query(array(
                     'post_type'      => 'product',
-                    'posts_per_page' => -1,
+                    'posts_per_page' => 5,
                     'tax_query'      => array(
                         array(
                             'taxonomy' => 'product_category',
