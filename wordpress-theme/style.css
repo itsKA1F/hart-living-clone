@@ -121,10 +121,30 @@ body {
   opacity: 0.8;
 }
 
-/* Category Section */
+/* Category Section & Archive */
 .category-section {
   padding: 4rem 0;
   background-color: var(--muted);
+}
+
+.category-header {
+  padding: 3rem 0 2rem;
+  background: var(--muted);
+  text-align: center;
+}
+
+.category-header .page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.category-description {
+  font-size: 1.125rem;
+  color: hsla(0, 0%, 10%, 0.6);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .section-header {

@@ -264,3 +264,67 @@ function hart_living_save_product_details($post_id) {
     }
 }
 add_action('save_post', 'hart_living_save_product_details');
+
+// Install Sample Products
+function hart_living_install_sample_products() {
+    // Check if products already exist
+    $existing_products = get_posts(array('post_type' => 'product', 'posts_per_page' => 1));
+    if (!empty($existing_products)) {
+        return; // Products already exist
+    }
+    
+    $sample_products = array(
+        array('sku' => 'SOFA-001', 'name' => 'Toulon Brown Sectional Sofa', 'description' => 'Elevate your living space with the Toulon Brown Sectional Sofa, featuring plush upholstery and modular design for ultimate comfort in modern homes.', 'short_description' => 'Stylish brown sectional sofa for family lounging.', 'price' => '1400.00', 'category' => 'Sofas'),
+        array('sku' => 'SOFA-002', 'name' => 'Pavia White Sectional Sofa', 'description' => 'The Pavia White Sectional Sofa offers clean lines and soft fabric, ideal for contemporary living rooms seeking elegance and versatility.', 'short_description' => 'Elegant white sectional with modular seating.', 'price' => '1200.00', 'category' => 'Sofas'),
+        array('sku' => 'SOFA-003', 'name' => 'Pavia Cream Sectional Sofa', 'description' => 'Discover timeless style with the Pavia Cream Sectional Sofa, combining neutral tones and ergonomic support for relaxed gatherings.', 'short_description' => 'Cream-toned sectional for cozy modern spaces.', 'price' => '1200.00', 'category' => 'Sofas'),
+        array('sku' => 'SOFA-004', 'name' => 'Zadar Cloudy Beige Sectional Sofa', 'description' => 'The Zadar Cloudy Beige Sectional Sofa blends subtle textures and spacious seating, perfect for effortless sophistication in any home.', 'short_description' => 'Beige sectional with cloud-like comfort.', 'price' => '1300.00', 'category' => 'Sofas'),
+        array('sku' => 'SOFA-005', 'name' => 'Peniche Light Taupe Cozy L Sofa', 'description' => 'Embrace warmth with the Peniche Light Taupe Cozy L Sofa, designed for intimate corners with its gentle curves and inviting cushions.', 'short_description' => 'Cozy L-shaped taupe sofa for small spaces.', 'price' => '1100.00', 'category' => 'Sofas'),
+        array('sku' => 'BED-001', 'name' => 'Perugia Cozy Grey Queen Bed Frame', 'description' => 'The Perugia Cozy Grey Queen Bed Frame features a sleek upholstered headboard and sturdy construction for a serene bedroom retreat.', 'short_description' => 'Cozy grey queen bed with upholstered design.', 'price' => '950.00', 'category' => 'Bed Frames'),
+        array('sku' => 'BED-002', 'name' => 'Amiens Cozy Beige Queen Bed Frame', 'description' => 'Transform your sleep sanctuary with the Amiens Cozy Beige Queen Bed Frame, offering neutral elegance and ample storage options.', 'short_description' => 'Beige queen bed frame for minimalist bedrooms.', 'price' => '1000.00', 'category' => 'Bed Frames'),
+        array('sku' => 'BED-003', 'name' => 'Lugano Stormy Grey Queen Bed Frame', 'description' => 'The Lugano Stormy Grey Queen Bed Frame delivers bold contrast and robust support, ideal for contemporary sleeping arrangements.', 'short_description' => 'Stormy grey queen frame with modern edges.', 'price' => '1100.00', 'category' => 'Bed Frames'),
+        array('sku' => 'BED-004', 'name' => 'Novi Cozy Beige Queen Bed Frame', 'description' => 'Enjoy subtle luxury in the Novi Cozy Beige Queen Bed Frame, with soft lines and high-quality materials for everyday comfort.', 'short_description' => 'Beige cozy queen bed for relaxed vibes.', 'price' => '900.00', 'category' => 'Bed Frames'),
+        array('sku' => 'BED-005', 'name' => 'Nis Cozy Grey Queen Bed Frame', 'description' => 'The Nis Cozy Grey Queen Bed Frame combines functionality and style, perfect for urban bedrooms with its compact yet spacious design.', 'short_description' => 'Compact grey queen bed frame.', 'price' => '850.00', 'category' => 'Bed Frames'),
+        array('sku' => 'OFFICE-001', 'name' => 'TwistLock Cord Cover', 'description' => 'Keep your office tidy with the TwistLock Cord Cover, a practical accessory for managing cables behind desks and workstations.', 'short_description' => 'Cable management cover for desks.', 'price' => '50.00', 'category' => 'Office Furniture'),
+        array('sku' => 'OFFICE-002', 'name' => 'FlexCharge Desk Clamp Socket', 'description' => 'Power up efficiently using the FlexCharge Desk Clamp Socket, easily attaching to any desk edge for convenient charging.', 'short_description' => 'Adjustable desk socket clamp.', 'price' => '80.00', 'category' => 'Office Furniture'),
+        array('sku' => 'OFFICE-003', 'name' => 'Arbor Light Oak Desk Office', 'description' => 'The Arbor Light Oak Desk Office provides a natural wood finish and ample workspace for productive home offices.', 'short_description' => 'Light oak desk for professional setups.', 'price' => '600.00', 'category' => 'Office Furniture'),
+        array('sku' => 'OFFICE-004', 'name' => 'Sequoia Slim Leather Armchair', 'description' => 'Add sophistication to your workspace with the Sequoia Slim Leather Armchair, featuring ergonomic support and premium leather.', 'short_description' => 'Slim leather armchair for offices.', 'price' => '400.00', 'category' => 'Office Furniture'),
+        array('sku' => 'OFFICE-005', 'name' => 'Opal Flow Lounge Seat', 'description' => 'Relax between tasks in the Opal Flow Lounge Seat, designed with fluid curves for comfort in modern office lounges.', 'short_description' => 'Contemporary lounge seat for breaks.', 'price' => '350.00', 'category' => 'Office Furniture'),
+        array('sku' => 'ARMCHAIR-001', 'name' => 'Anya Light Brown Armchair', 'description' => 'The Anya Light Brown Armchair brings warmth and comfort to reading nooks with its soft fabric and classic silhouette.', 'short_description' => 'Light brown armchair for cozy corners.', 'price' => '300.00', 'category' => 'Arm Chairs'),
+        array('sku' => 'ARMCHAIR-002', 'name' => 'Avila Grey Armchair', 'description' => 'Elevate your decor with the Avila Grey Armchair, offering neutral tones and plush cushioning for versatile placement.', 'short_description' => 'Grey armchair with plush comfort.', 'price' => '320.00', 'category' => 'Arm Chairs'),
+        array('sku' => 'ARMCHAIR-003', 'name' => 'Eira Black Armchair', 'description' => 'Make a statement with the Eira Black Armchair, featuring bold upholstery and sturdy legs for dramatic living spaces.', 'short_description' => 'Bold black armchair for modern rooms.', 'price' => '280.00', 'category' => 'Arm Chairs'),
+        array('sku' => 'ARMCHAIR-004', 'name' => 'Nara Black Armchair', 'description' => 'The Nara Black Armchair combines sleek design and deep seating, ideal for contemporary lounging areas.', 'short_description' => 'Sleek black armchair with deep seat.', 'price' => '310.00', 'category' => 'Arm Chairs'),
+        array('sku' => 'ARMCHAIR-005', 'name' => 'Reggio Smokey Grey Armchair', 'description' => 'Unwind in style with the Reggio Smokey Grey Armchair, blending subtle smoke hues and ergonomic support.', 'short_description' => 'Smokey grey armchair for relaxation.', 'price' => '340.00', 'category' => 'Arm Chairs'),
+        array('sku' => 'DINING-001', 'name' => 'Goslić Ganache Large Board Dining Table', 'description' => 'Host gatherings with the Goslić Ganache Large Board Dining Table, crafted from rich wood for enduring elegance.', 'short_description' => 'Large board dining table in ganache finish.', 'price' => '1800.00', 'category' => 'Dining Tables'),
+        array('sku' => 'DINING-002', 'name' => 'Duba Ceramic Grey Rectangular Dining Table (Small)', 'description' => 'The Duba Ceramic Grey Rectangular Dining Table (Small) offers a compact, modern surface for intimate meals.', 'short_description' => 'Small grey ceramic rectangular dining table.', 'price' => '1100.00', 'category' => 'Dining Tables'),
+        array('sku' => 'DINING-003', 'name' => 'Duba Ceramic Grey Rectangular Dining Table (Big)', 'description' => 'Expand your dining options with the Duba Ceramic Grey Rectangular Dining Table (Big), featuring durable ceramic top.', 'short_description' => 'Big grey ceramic rectangular dining table.', 'price' => '1600.00', 'category' => 'Dining Tables'),
+        array('sku' => 'DINING-004', 'name' => 'Rectangular Oak Dining Table', 'description' => 'A classic choice, the Rectangular Oak Dining Table provides natural grain and seating for 6-8 guests.', 'short_description' => 'Oak rectangular dining table for families.', 'price' => '700.00', 'category' => 'Dining Tables'),
+        array('sku' => 'DINING-005', 'name' => 'Extendable Glass Dining Table', 'description' => 'Adapt to any occasion with the Extendable Glass Dining Table, combining sleek glass and hidden extension mechanism.', 'short_description' => 'Modern extendable glass dining table.', 'price' => '1050.00', 'category' => 'Dining Tables'),
+    );
+    
+    foreach ($sample_products as $product_data) {
+        // Create product post
+        $post_id = wp_insert_post(array(
+            'post_title'   => $product_data['name'],
+            'post_content' => $product_data['description'],
+            'post_excerpt' => $product_data['short_description'],
+            'post_status'  => 'publish',
+            'post_type'    => 'product',
+        ));
+        
+        if ($post_id) {
+            // Add price
+            update_post_meta($post_id, '_product_price', $product_data['price']);
+            update_post_meta($post_id, '_product_sku', $product_data['sku']);
+            
+            // Add category
+            $term = term_exists($product_data['category'], 'product_category');
+            if (!$term) {
+                $term = wp_insert_term($product_data['category'], 'product_category');
+            }
+            if (!is_wp_error($term)) {
+                wp_set_object_terms($post_id, $term['term_id'], 'product_category');
+            }
+        }
+    }
+}
+add_action('after_switch_theme', 'hart_living_install_sample_products');
