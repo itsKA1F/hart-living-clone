@@ -118,9 +118,9 @@ get_header();
                         </button>
                     </div>
                     <div style="display: flex; gap: 1rem;">
-                        <a href="<?php echo esc_url(home_url('/#products')); ?>" 
+                        <a href="<?php echo esc_url(get_post_type_archive_link('product')); ?>" 
                            style="flex: 1; padding: 1rem 2rem; border: 2px solid var(--primary); color: var(--primary); border-radius: 0.375rem; text-align: center; text-decoration: none; font-weight: 600; transition: all 0.3s;">
-                            <?php _e('Back to Products', 'hart-living'); ?>
+                            <?php _e('Back to Shop', 'hart-living'); ?>
                         </a>
                         <a href="<?php echo esc_url(home_url('/#contact')); ?>" 
                            style="flex: 1; padding: 1rem 2rem; border: 2px solid var(--primary); color: var(--primary); border-radius: 0.375rem; text-align: center; text-decoration: none; font-weight: 600; transition: all 0.3s;">
@@ -133,6 +133,74 @@ get_header();
                 </div>
             </div>
         </article>
+        
+        <!-- Related Products -->
+        <?php
+        $categories = wp_get_post_terms(get_the_ID(), 'product_category', array('fields' => 'ids'));
+        if ($categories) :
+            $related_products = new WP_Query(array(
+                'post_type'      => 'product',
+                'posts_per_page' => 4,
+                'post__not_in'   => array(get_the_ID()),
+                'tax_query'      => array(
+                    array(
+                        'taxonomy' => 'product_category',
+                        'field'    => 'term_id',
+                        'terms'    => $categories,
+                    ),
+                ),
+            ));
+            
+            if ($related_products->have_posts()) :
+                ?>
+                <section class="related-products" style="padding: 4rem 1rem; background: var(--muted);">
+                    <div class="container" style="max-width: 1200px; margin: 0 auto;">
+                        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">
+                            <?php _e('Related Products', 'hart-living'); ?>
+                        </h2>
+                        <div class="products-grid">
+                            <?php
+                            while ($related_products->have_posts()) :
+                                $related_products->the_post();
+                                $price = get_post_meta(get_the_ID(), '_product_price', true);
+                                $product_image = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'hart-product') : '';
+                                ?>
+                                <div class="product-card">
+                                    <a href="<?php the_permalink(); ?>">
+                                        <?php if (has_post_thumbnail()) : ?>
+                                            <?php the_post_thumbnail('hart-product', array('class' => 'product-image')); ?>
+                                        <?php else : ?>
+                                            <div class="product-image" style="background: var(--muted); display: flex; align-items: center; justify-content: center;">
+                                                <span style="font-size: 3rem;">📦</span>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <div class="product-info">
+                                            <h3 class="product-title"><?php the_title(); ?></h3>
+                                            <?php if ($price) : ?>
+                                                <p class="product-price">$<?php echo esc_html($price); ?></p>
+                                            <?php endif; ?>
+                                        </div>
+                                    </a>
+                                    <button class="add-to-cart-btn" 
+                                            data-id="<?php echo get_the_ID(); ?>"
+                                            data-name="<?php echo esc_attr(get_the_title()); ?>"
+                                            data-price="<?php echo esc_attr($price); ?>"
+                                            data-image="<?php echo esc_url($product_image); ?>">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                                <?php
+                            endwhile;
+                            wp_reset_postdata();
+                            ?>
+                        </div>
+                    </div>
+                </section>
+                <?php
+            endif;
+        endif;
+        ?>
         
         <?php
     endwhile;

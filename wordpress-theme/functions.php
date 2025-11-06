@@ -42,19 +42,28 @@ function hart_living_setup() {
         'gallery',
         'caption',
     ));
+    
+    // WooCommerce support (optional - if you want WooCommerce integration)
+    add_theme_support('woocommerce');
+    add_theme_support('wc-product-gallery-zoom');
+    add_theme_support('wc-product-gallery-lightbox');
+    add_theme_support('wc-product-gallery-slider');
 }
 add_action('after_setup_theme', 'hart_living_setup');
 
 // Enqueue Styles and Scripts
 function hart_living_scripts() {
     // Main stylesheet
-    wp_enqueue_style('hart-living-style', get_stylesheet_uri(), array(), '1.0.0');
+    wp_enqueue_style('hart-living-style', get_stylesheet_uri(), array(), '2.0.0');
     
-    // Custom JavaScript (optional)
-    wp_enqueue_script('hart-living-script', get_template_directory_uri() . '/js/main.js', array(), '1.0.0', true);
+    // Additional styles for multi-page
+    wp_enqueue_style('hart-living-additions', get_template_directory_uri() . '/style-additions.css', array('hart-living-style'), '2.0.0');
+    
+    // Custom JavaScript
+    wp_enqueue_script('hart-living-script', get_template_directory_uri() . '/js/main.js', array(), '2.0.0', true);
     
     // Smooth scroll
-    wp_enqueue_script('hart-living-smooth-scroll', get_template_directory_uri() . '/js/smooth-scroll.js', array(), '1.0.0', true);
+    wp_enqueue_script('hart-living-smooth-scroll', get_template_directory_uri() . '/js/smooth-scroll.js', array(), '2.0.0', true);
 }
 add_action('wp_enqueue_scripts', 'hart_living_scripts');
 

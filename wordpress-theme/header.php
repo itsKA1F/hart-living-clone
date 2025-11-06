@@ -28,14 +28,30 @@
             </div>
             
             <nav class="main-navigation">
-                <?php
-                wp_nav_menu(array(
-                    'theme_location' => 'primary',
-                    'menu_class'     => 'nav-menu',
-                    'container'      => false,
-                    'fallback_cb'    => 'hart_living_default_menu',
-                ));
-                ?>
+                <ul class="nav-menu">
+                    <li><a href="<?php echo esc_url(home_url('/')); ?>"><?php _e('Home', 'hart-living'); ?></a></li>
+                    <li><a href="<?php echo esc_url(get_post_type_archive_link('product')); ?>"><?php _e('Shop', 'hart-living'); ?></a></li>
+                    <li class="menu-item-has-children">
+                        <a href="#"><?php _e('Categories', 'hart-living'); ?> ▼</a>
+                        <ul class="sub-menu">
+                            <?php
+                            $categories = get_terms(array(
+                                'taxonomy' => 'product_category',
+                                'hide_empty' => true,
+                            ));
+                            if ($categories && !is_wp_error($categories)) :
+                                foreach ($categories as $cat) :
+                                    ?>
+                                    <li><a href="<?php echo esc_url(get_term_link($cat)); ?>"><?php echo esc_html($cat->name); ?></a></li>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo esc_url(home_url('/#about')); ?>"><?php _e('About', 'hart-living'); ?></a></li>
+                    <li><a href="<?php echo esc_url(home_url('/#contact')); ?>"><?php _e('Contact', 'hart-living'); ?></a></li>
+                </ul>
             </nav>
             
             <button id="cart-toggle" class="cart-button">

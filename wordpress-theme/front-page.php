@@ -68,18 +68,21 @@ get_header();
         </div>
     </section>
 
-    <!-- Products Section -->
+    <!-- Products Section - Featured Products -->
     <section id="products" class="products-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title"><?php _e('Top Picks', 'hart-living'); ?></h2>
+                <h2 class="section-title"><?php _e('Featured Products', 'hart-living'); ?></h2>
+                <a href="<?php echo esc_url(get_post_type_archive_link('product')); ?>" class="view-all">
+                    <?php _e('View All Products', 'hart-living'); ?>
+                </a>
             </div>
             
             <div class="products-grid">
                 <?php
                 $products = new WP_Query(array(
                     'post_type'      => 'product',
-                    'posts_per_page' => 8,
+                    'posts_per_page' => 12,
                     'orderby'        => 'date',
                     'order'          => 'DESC',
                 ));

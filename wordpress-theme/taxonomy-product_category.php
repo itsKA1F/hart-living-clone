@@ -24,9 +24,11 @@ $term = get_queried_object();
         <div class="container">
             <div class="products-grid">
                 <?php
+                $paged = get_query_var('paged') ? get_query_var('paged') : 1;
                 $products = new WP_Query(array(
                     'post_type'      => 'product',
-                    'posts_per_page' => 5,
+                    'posts_per_page' => 12,
+                    'paged'          => $paged,
                     'tax_query'      => array(
                         array(
                             'taxonomy' => 'product_category',
@@ -72,14 +74,29 @@ $term = get_queried_object();
                         </div>
                         <?php
                     endwhile;
-                    wp_reset_postdata();
                 else :
                     ?>
                     <p><?php _e('No products found in this category.', 'hart-living'); ?></p>
                     <?php
                 endif;
+                wp_reset_postdata();
                 ?>
             </div>
+            
+            <!-- Pagination -->
+            <?php if ($products->max_num_pages > 1) : ?>
+                <div class="pagination">
+                    <?php
+                    echo paginate_links(array(
+                        'total'   => $products->max_num_pages,
+                        'current' => $paged,
+                        'prev_text' => '&laquo; Previous',
+                        'next_text' => 'Next &raquo;',
+                    ));
+                    wp_reset_postdata();
+                    ?>
+                </div>
+            <?php endif; ?>
         </div>
     </section>
 
