@@ -2,11 +2,11 @@ import { Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useCart } from "@/hooks/use-cart";
+import { useCart } from "@/contexts/CartContext";
 import { products } from "@/data/products";
 
 const TopPicks = () => {
-  const { addItem } = useCart();
+  const { addToCart } = useCart();
 
   return (
     <section className="py-16 bg-background">
@@ -63,14 +63,7 @@ const TopPicks = () => {
                   {!product.soldOut && (
                     <Button
                       size="icon"
-                      onClick={() =>
-                        addItem({
-                          id: product.id,
-                          name: product.name,
-                          price: product.price,
-                          image: product.image,
-                        })
-                      }
+                      onClick={() => addToCart(product)}
                     >
                       <ShoppingCart className="h-4 w-4" />
                     </Button>
