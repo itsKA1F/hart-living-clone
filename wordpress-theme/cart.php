@@ -77,7 +77,7 @@ get_header();
                                         <span id="cart-page-total">$${total.toLocaleString()}</span>
                                     </div>
                                     <div style="display: flex; gap: 1rem;">
-                                        <a href="<?php echo esc_url(home_url('/#contact')); ?>" 
+                                        <a href="<?php echo esc_url(home_url('/checkout')); ?>" 
                                            style="flex: 1; padding: 1rem 2rem; background: var(--primary); color: var(--primary-foreground); border-radius: 0.375rem; text-align: center; text-decoration: none; font-weight: 600;">
                                             <?php _e('Proceed to Checkout', 'hart-living'); ?>
                                         </a>
