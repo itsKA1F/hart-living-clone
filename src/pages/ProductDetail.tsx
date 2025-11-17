@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { useCart } from "@/hooks/use-cart";
+import { useCart } from "@/contexts/CartContext";
 import { products } from "@/data/products";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -12,7 +12,7 @@ import Footer from "@/components/Footer";
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addItem } = useCart();
+  const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
 
   const product = products.find((p) => p.id === Number(id));
@@ -32,12 +32,7 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
-      addItem({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.image,
-      });
+      addToCart(product);
     }
   };
 
