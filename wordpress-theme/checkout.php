@@ -18,7 +18,7 @@ get_header();
                         <?php _e('Home', 'hart-living'); ?>
                     </a>
                     <span style="margin: 0 0.5rem; color: var(--foreground); opacity: 0.5;">/</span>
-                    <a href="<?php echo esc_url(home_url('/cart')); ?>" style="color: var(--primary);">
+                    <a href="<?php echo esc_url(hart_living_get_cart_url()); ?>" style="color: var(--primary);">
                         <?php _e('Cart', 'hart-living'); ?>
                     </a>
                     <span style="margin: 0 0.5rem; color: var(--foreground); opacity: 0.5;">/</span>

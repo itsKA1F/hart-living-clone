@@ -275,6 +275,57 @@ function hart_living_save_product_details($post_id) {
 add_action('save_post', 'hart_living_save_product_details');
 
 // Install Sample Products
+/**
+ * Create Cart and Checkout pages on theme activation
+ */
+function hart_living_create_shop_pages() {
+    // Create Cart Page
+    $cart_page = get_page_by_path('cart');
+    if (!$cart_page) {
+        $cart_page_id = wp_insert_post(array(
+            'post_title' => 'Cart',
+            'post_name' => 'cart',
+            'post_status' => 'publish',
+            'post_type' => 'page',
+            'post_content' => ''
+        ));
+        update_post_meta($cart_page_id, '_wp_page_template', 'cart.php');
+    }
+    
+    // Create Checkout Page
+    $checkout_page = get_page_by_path('checkout');
+    if (!$checkout_page) {
+        $checkout_page_id = wp_insert_post(array(
+            'post_title' => 'Checkout',
+            'post_name' => 'checkout',
+            'post_status' => 'publish',
+            'post_type' => 'page',
+            'post_content' => ''
+        ));
+        update_post_meta($checkout_page_id, '_wp_page_template', 'checkout.php');
+    }
+}
+add_action('after_switch_theme', 'hart_living_create_shop_pages');
+
+/**
+ * Helper functions to get cart and checkout page URLs
+ */
+function hart_living_get_cart_url() {
+    $cart_page = get_page_by_path('cart');
+    if ($cart_page) {
+        return get_permalink($cart_page->ID);
+    }
+    return home_url('/cart');
+}
+
+function hart_living_get_checkout_url() {
+    $checkout_page = get_page_by_path('checkout');
+    if ($checkout_page) {
+        return get_permalink($checkout_page->ID);
+    }
+    return home_url('/checkout');
+}
+
 function hart_living_install_sample_products() {
     // Check if products already exist
     $existing_products = get_posts(array('post_type' => 'product', 'posts_per_page' => 1));
