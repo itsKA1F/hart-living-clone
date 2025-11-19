@@ -117,13 +117,23 @@ const Checkout = () => {
                 <h2 className="text-2xl font-bold mb-6">Order Summary</h2>
                 <div className="space-y-4 mb-6">
                   {cart.map((item) => (
-                    <div key={item.id} className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">
-                        {item.name} x {item.quantity}
-                      </span>
-                      <span className="font-semibold">
-                        ${(item.price * item.quantity).toFixed(2)}
-                      </span>
+                    <div key={item.id} className="flex gap-3 pb-4 border-b border-border">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-16 h-16 object-cover rounded"
+                      />
+                      <div className="flex-1">
+                        <div className="flex justify-between mb-1">
+                          <span className="font-medium text-sm">{item.name}</span>
+                          <span className="font-semibold text-sm">
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </span>
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          ${item.price.toFixed(2)} × {item.quantity}
+                        </p>
+                      </div>
                     </div>
                   ))}
                   <div className="border-t border-border pt-4">
